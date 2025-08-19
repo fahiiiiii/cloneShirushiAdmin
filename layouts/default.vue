@@ -1,9 +1,10 @@
 
 <template>
   <v-app>
-    <!-- <v-layout fluid> -->
+   
     <Navbar />
-    <!-- Page content will appear here -->
+     <LeftNavbar/>
+     <!-- page contet will appear here -->
     <v-main>
       <v-container>
         <slot />
@@ -15,6 +16,7 @@
 
 <script setup>
 import { Navbar  } from '#components';
+import LeftNavbar from '~/components/LeftNavbar.vue';
 </script>
 
 <style lang="scss" scoped>

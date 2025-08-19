@@ -1,7 +1,6 @@
 <template>
-  <v-app>
     <!-- Full-width App Bar with white background -->
-    <v-app-bar color="#FFFFFF" flat class="w-100" height="64">
+    <v-app-bar color="#FFFFFF" flat class="w-100" height="64" elevation="2">
 
       <!-- Nav Icon with proper alignment and spacing -->
       <v-app-bar-nav-icon
@@ -54,7 +53,7 @@
     </v-app-bar>
 
     <!-- Left Navigation Drawer - now permanent and not temporary -->
-    <v-navigation-drawer 
+    <!-- <v-navigation-drawer 
       v-model="drawer" 
       :permanent="!$vuetify.display.mobile"
       :temporary="$vuetify.display.mobile"
@@ -62,42 +61,15 @@
       :width="280"
       class="left-sidebar"
     >
-      <LeftNavbar />
-    </v-navigation-drawer>
+      
+    </v-navigation-drawer> -->
 
-    <!-- Main content area with dynamic margin -->
-    <v-main :class="{ 'content-shifted': drawer && !$vuetify.display.mobile }">
-      <div class="content-wrapper" :style="contentStyle">
-        <v-container fluid>
-          <p>This is some content. The navbar stays full width and content shifts when sidebar opens.</p>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-          <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-          
-          <!-- Demo cards to show content shifting -->
-          <div class="demo-cards mt-4">
-            <v-card class="mb-4" elevation="2">
-              <v-card-title>Demo Card 1</v-card-title>
-              <v-card-text>
-                This content will shift to the right when the left sidebar is open.
-              </v-card-text>
-            </v-card>
-            
-            <v-card class="mb-4" elevation="2">
-              <v-card-title>Demo Card 2</v-card-title>
-              <v-card-text>
-                Both the sidebar and this content remain fully visible without overlapping.
-              </v-card-text>
-            </v-card>
-          </div>
-        </v-container>
-      </div>
-    </v-main>
-  </v-app>
+   
 </template>
 
 <script setup>
 import { ref, computed, onMounted, onUnmounted } from 'vue'
-import LeftNavbar from './LeftNavbar.vue'
+// import LeftNavbar from './LeftNavbar.vue'
 
 const drawer = ref(false)
 
@@ -154,7 +126,6 @@ onUnmounted(() => {
   position: relative;
   z-index: 10;
   font-weight: 400;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
   min-height: 64px ;
   padding: 0 16px;
   background-color: #FFFFFF ; /* White background like in image */

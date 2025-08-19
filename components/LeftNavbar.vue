@@ -1,18 +1,37 @@
 <!-- components/LeftNavbar.vue -->
 <template>
-  <div class="left-navbar-content">
+  <v-navigation-drawer 
+    class="left-navbar-content" 
+    width="280"
+    permanent
+    rail-width="280"
+  >
     <!-- Staging Mode Header -->
     <div class="staging-header">
-      <v-chip color="orange" text-color="black" size="small" class="ma-2">
-        <v-icon start>mdi-cog</v-icon>
+      <v-chip 
+        color="#FF9800" 
+        text-color="black" 
+        size="small" 
+        class="staging-chip"
+        variant="flat"
+      >
+        <img 
+          src="./../assets/aws-logo.png"
+          alt="AWS Logo"
+          class="aws-logo"
+        />
         STAGING MODE
       </v-chip>
     </div>
 
-    <v-divider></v-divider>
+    <v-divider class="staging-divider"></v-divider>
 
     <!-- Navigation List -->
-    <v-list density="compact" nav>
+    <v-list 
+      density="compact" 
+      nav
+      class="navigation-list"
+    >
       <!-- Top -->
       <v-list-item 
         prepend-icon="mdi-apps" 
@@ -43,7 +62,15 @@
             class="nav-item"
           >
             <template v-slot:append>
-              <v-chip color="green" size="x-small" text-color="white">2</v-chip>
+              <v-chip 
+                color="green" 
+                size="x-small" 
+                text-color="white"
+                variant="flat"
+                class="count-chip"
+              >
+                2
+              </v-chip>
             </template>
           </v-list-item>
         </template>
@@ -139,7 +166,15 @@
             class="nav-item"
           >
             <template v-slot:append>
-              <v-chip color="red" size="x-small" text-color="white">374</v-chip>
+              <v-chip 
+                color="red" 
+                size="x-small" 
+                text-color="white"
+                variant="flat"
+                class="count-chip"
+              >
+                374
+              </v-chip>
             </template>
           </v-list-item>
         </template>
@@ -251,7 +286,15 @@
             class="nav-item"
           >
             <template v-slot:append>
-              <v-chip color="red" size="x-small" text-color="white">200</v-chip>
+              <v-chip 
+                color="red" 
+                size="x-small" 
+                text-color="white"
+                variant="flat"
+                class="count-chip"
+              >
+                200
+              </v-chip>
             </template>
           </v-list-item>
         </template>
@@ -278,7 +321,7 @@
       />
 
     </v-list>
-  </div>
+  </v-navigation-drawer>
 </template>
 
 <script setup>
@@ -287,45 +330,168 @@
 
 <style lang="scss" scoped>
 .left-navbar-content {
-  height: 100%;
-  width: 100%;
+  height: 100vh;
+  background-color: #ffffff;
+  border-right: 1px solid #e0e0e0;
 
   .staging-header {
-    padding: 8px 0;
+    padding: 8px 12px;
     background-color: #f5f5f5;
-  }
-
-  .nav-item {
-    margin: 2px 0;
-    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
     
-    &:hover {
-      background-color: rgba(0, 0, 0, 0.04);
+    .staging-chip {
+      font-weight: 700;
+      font-size: 0.7rem;
+      letter-spacing: 0.8px;
+      height: 24px;
+      border-radius: 4px;
+      padding: 0 8px;
+      background-color: #FF9800 !important;
+      color: #000000 !important;
+      box-shadow: none;
+      display: flex;
+      align-items: center;
+      
+      .aws-logo {
+        width: 14px;
+        height: 14px;
+        margin-right: 4px;
+        object-fit: contain;
+      }
     }
   }
 
-  .sub-nav-item {
-    padding-left: 56px;
-    font-size: 0.875rem;
-    margin: 1px 0;
+  .staging-divider {
+    margin: 0;
+    border-color: #e0e0e0;
+    opacity: 0.8;
+  }
+
+  .navigation-list {
+    padding: 8px;
+    background-color: transparent;
     
-    &:hover {
-      background-color: rgba(0, 0, 0, 0.04);
+    .nav-item {
+      margin: 2px 0;
+      border-radius: 8px;
+      min-height: 40px;
+      padding: 0 12px;
+      
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.04);
+      }
+      
+      &.v-list-item--active {
+        background-color: rgba(25, 118, 210, 0.12);
+        color: #1976d2;
+        
+        .v-icon {
+          color: #1976d2;
+        }
+      }
+
+      .count-chip {
+        min-width: 20px;
+        height: 20px;
+        font-size: 0.7rem;
+        font-weight: 600;
+        border-radius: 10px;
+      }
+    }
+
+    .sub-nav-item {
+      padding-left: 56px;
+      font-size: 0.875rem;
+      margin: 1px 0;
+      min-height: 36px;
+      border-radius: 6px;
+      
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.04);
+      }
     }
   }
 
-  // Custom styling for the navigation drawer
+  // Deep styling for Vuetify components
+  :deep(.v-navigation-drawer__content) {
+    background-color: #ffffff;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #bdbdbd transparent;
+    
+    &::-webkit-scrollbar {
+      width: 6px;
+    }
+    
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    
+    &::-webkit-scrollbar-thumb {
+      background-color: #bdbdbd;
+      border-radius: 3px;
+    }
+  }
+
   :deep(.v-list-item__prepend) {
     margin-right: 16px;
+    
+    .v-icon {
+      font-size: 20px;
+      color: #616161;
+    }
+  }
+
+  :deep(.v-list-item__append) {
+    margin-left: auto;
   }
 
   :deep(.v-list-item-title) {
     font-size: 0.875rem;
-    font-weight: 400;
+    font-weight: 500;
+    color: #424242;
+    line-height: 1.2;
   }
 
   :deep(.v-list-group__items) {
     background-color: rgba(0, 0, 0, 0.02);
+    border-radius: 8px;
+    margin: 2px 0;
+  }
+
+  :deep(.v-list-group__header) {
+    .v-list-item__append {
+      .v-list-group__header__append {
+        .v-icon {
+          font-size: 16px;
+          color: #757575;
+          transition: transform 0.2s ease;
+        }
+      }
+    }
+    
+    &.v-list-group__header--active {
+      .v-list-item__append {
+        .v-list-group__header__append {
+          .v-icon {
+            transform: rotate(180deg);
+          }
+        }
+      }
+    }
+  }
+
+  :deep(.v-chip) {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+  }
+}
+
+// Mobile responsiveness
+@media (max-width: 768px) {
+  .left-navbar-content {
+    width: 100% !important;
   }
 }
 </style>

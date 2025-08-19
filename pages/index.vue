@@ -1,6 +1,6 @@
 <template>
     <div>
-        kjvd.fk
+       <TopData />
     </div>
 </template>
 
