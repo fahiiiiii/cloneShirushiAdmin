@@ -1,6 +1,6 @@
 <template>
     <div>
-       <TopData />
+       <TableData />
     </div>
 </template>
 
