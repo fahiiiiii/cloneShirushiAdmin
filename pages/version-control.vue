@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Version Control Page</h1>
+    <!-- <h1>Version Control Page</h1> -->
     <TableVersionControl />
   </div>
 </template>

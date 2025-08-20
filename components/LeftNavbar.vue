@@ -1,8 +1,8 @@
-<!-- components/LeftNavbar.vue - Optimized Version -->
+<!-- components/LeftNavbar.vue - Complete Version with Navigation -->
 <template>
   <v-navigation-drawer 
     v-model="navbarStore.isLeftNavbarVisible"
-    width="280"
+    width="210"
     :permanent="$vuetify.display.lgAndUp"
     rail-width="280"
     :temporary="$vuetify.display.mdAndDown"
@@ -14,7 +14,7 @@
     border="e"
   >
     <!-- Staging Mode Header -->
-    <v-container fluid class="pa-3 bg-grey-lighten-4" style="border-radius: 8px; margin: 0;">
+    <v-container fluid class="pa-3" style="border-radius: 8px; margin: 0;">
       <v-chip 
         color="orange" 
         text-color="black" 
@@ -118,6 +118,7 @@
 
 <script setup lang="ts">
 import { computed, type ComputedRef } from 'vue'
+import { useRouter } from 'vue-router'
 import { useNavbarStore } from '~/stores/navbar'
 
 // Types
@@ -147,8 +148,46 @@ type NavItem = 'top' | 'system' | 'user-registration' | 'management' | 'sales' |
                'conference-list' | 'conference-settings' | 'conference-participants' | 'conference-records' |
                'version-control' | 'smm-settings' | 'inquiry-settings' | 'statistics-settings' | 'faq-settings'
 
-// Store
+// Store and Router
 const navbarStore = useNavbarStore()
+const router = useRouter()
+
+// Route mapping - adjust these routes according to your actual page structure
+const routeMap: Record<string, string> = {
+  'top': '/',
+  // 'system': '/system',
+  'version-control': '/version-control',
+  // 'smm-settings': '/smm-settings',
+  // 'inquiry-settings': '/inquiry-settings',
+  // 'statistics-settings': '/statistics-settings',
+  // 'faq-settings': '/faq-settings',
+  // 'user-registration': '/user-registration',
+  // 'management': '/management',
+  'management-list': '/',
+  // 'prospect-list': '/prospect-list',
+  // 'sales-support-reset': '/sales-support-reset',
+  // 'sales-support-unlock': '/sales-support-unlock',
+  // 'sales': '/sales',
+  // 'trading': '/trading',
+  // 'mining': '/mining',
+  // 'agency': '/agency',
+  // 'conference': '/conference',
+  // 'conference-list': '/conference-list',
+  // 'conference-settings': '/conference-settings',
+  // 'conference-participants': '/conference-participants',
+  // 'conference-records': '/conference-records',
+  // 'worker': '/worker',
+  // 'security': '/security',
+  // 'shop': '/shop',
+  // 'coin': '/coin',
+  // 'reward': '/reward',
+  // 'order': '/order',
+  // 'airdrop': '/airdrop',
+  // 'manager': '/manager',
+  // 'contact': '/contact',
+  // 'wallet': '/wallet',
+  // 'account': '/account'
+}
 
 // Static navigation configuration - this won't recreate on every render
 const navigationGroups: ComputedRef<NavigationGroup[]> = computed(() => [
@@ -291,20 +330,60 @@ const isGroupOrChildActive = (groupName: string): boolean => {
   return navbarStore.activeItem === groupName || children.includes(navbarStore.activeItem)
 }
 
-// Event handlers
+// Event handlers with navigation
 const handleTopClick = (): void => {
   if (navbarStore.activeItem === 'top') {
     navbarStore.toggleLeftNavbar()
   } else {
     navbarStore.setActiveItem('top')
+    router.push('/')
   }
 }
 
-const handleNavClick = (item: NavItem): void => {
+const handleNavClick = async (item: NavItem): Promise<void> => {
+  console.log('Clicking nav item:', item) // Debug log
+  
+  // Update store
   navbarStore.setActiveItem(item)
+  
+  // Navigate to route if it exists
+  const route = routeMap[item]
+  if (route) {
+    console.log('Navigating to route:', route) // Debug log
+    try {
+      await router.push(route)
+      console.log('Navigation successful to:', route) // Debug log
+    } catch (error) {
+      console.error('Navigation failed:', error) // Debug log
+    }
+  } else {
+    console.warn('No route found for item:', item) // Debug log
+  }
+  
+  // Auto-expand parent groups when navigating to child items
+  const parentGroup = Object.entries(parentChildMap.value).find(([_, children]) => 
+    children.includes(item)
+  )?.[0]
+  
+  if (parentGroup && !isGroupExpanded(parentGroup)) {
+    navbarStore.toggleGroup(parentGroup)
+  }
 }
 
 const toggleGroup = (groupName: string): void => {
   navbarStore.toggleGroup(groupName)
-}
+};
 </script>
+
+
+<style scoped>
+/* Add any custom styles here if needed */
+.v-list-item--active {
+  color: #FFA01F !important;
+}
+
+/* Ensure proper styling for nested items */
+.v-list-group__items .v-list-item {
+  padding-left: 48px !important;
+}
+</style>
