@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid class="pa-4">
+  <v-container fluid class="pa-2 pa-md-4" style="max-width: 100%; overflow-x: hidden;">
     <!-- Unshipped Workers Table -->
     <DynamicTable
       :title="tableConfigs.unshippedWorkers.title"
@@ -26,9 +26,9 @@
     />
 
     <!-- Bottom Section with Two Tables Side by Side -->
-    <v-row class="mt-4">
+    <v-row class="mt-2 mt-md-4" no-gutters>
       <!-- Unpaid Orders Table -->
-      <v-col cols="12" md="6">
+      <v-col cols="12" lg="6" class="pe-0 pe-lg-2">
         <DynamicTable
           :title="tableConfigs.unpaidOrders.title"
           :color="tableConfigs.unpaidOrders.color"
@@ -41,7 +41,7 @@
       </v-col>
 
       <!-- Worker Information Table -->
-      <v-col cols="12" md="6">
+      <v-col cols="12" lg="6" class="ps-0 ps-lg-2">
         <DynamicTable
           :title="tableConfigs.workerInfo.title"
           :color="tableConfigs.workerInfo.color"
@@ -62,10 +62,10 @@ import DynamicTable from './DynamicTable.vue'
 // You can easily modify this data or load it from an API
 const tableConfigs = {
   unshippedWorkers: {
-    title: '未発送ワーカー',
-    subtitle: '68ライセンス',
+    title: '未発送ワーカー68ライセンス',
+   
     color: 'red',
-    icon: 'mdi-truck-delivery-outline',
+    icon: 'mdi-hand-coin', // FIXED: Changed from truck icon
     
     // Alert configuration
     alertMessage: '※未発送ワーカーが674件あります。',
@@ -80,7 +80,7 @@ const tableConfigs = {
       { title: '台数', key: 'units', sortable: true },
       { title: 'SISCUSRDランク', key: 'siscusrdRank', sortable: true },
       { title: 'SISCUSD', key: 'siscusd', sortable: true },
-      { title: 'USD/含コイン', key: 'usdCoin', sortable: true },
+      { title: 'USD/含むコイン', key: 'usdCoin', sortable: true },
       { title: 'USD/JPY', key: 'usdJpy', sortable: true },
       { title: 'リワード合計', key: 'rewardTotal', sortable: true },
       { title: 'リワード合計(JPY)', key: 'rewardTotalJpy', sortable: true },
@@ -125,7 +125,7 @@ const tableConfigs = {
   workerInfo: {
     title: 'ワーカー情報',
     color: 'yellow',
-    icon: 'mdi-worker',
+    icon: 'mdi-printer',
     headers: [
       { title: 'サービス名', key: 'serviceName', sortable: true },
       { title: 'ワーカーステータス', key: 'workerStatus', sortable: true },
@@ -192,3 +192,41 @@ defineExpose({
   updateSummaryData
 })
 </script>
+
+<style scoped>
+/* Ensure no horizontal overflow at container level */
+.v-container {
+  max-width: 100vw !important;
+  overflow: hidden !important;
+  padding-left: 8px !important;
+  padding-right: 8px !important;
+}
+
+/* Hide all scrollbars globally */
+* {
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+*::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+/* Force all elements to respect container boundaries */
+:deep(.v-row),
+:deep(.v-col),
+:deep(.v-card),
+:deep(.v-data-table) {
+  overflow: hidden !important;
+  max-width: 100% !important;
+}
+
+/* Responsive spacing adjustments */
+@media (max-width: 768px) {
+  .v-container {
+    padding: 4px !important;
+  }
+}
+</style>

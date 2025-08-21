@@ -29,8 +29,8 @@
       </v-chip>
     </v-card-title>
     
-    <!-- Inner Card/Table Container -->
-    <v-card class="mx-3 mb-3 elevation-0" style="border-left: 1px solid #e6e6e6; border-right: 1px solid #e6e6e6; border-bottom: 3px solid #e0e0e0;">
+    <!-- Inner Card/Table Container with proper spacing -->
+    <v-card class="mx-3 mt-3 mb-3 elevation-0" style="border-left: 1px solid #e6e6e6; border-right: 1px solid #e6e6e6; border-bottom: 3px solid #e0e0e0;">
       <v-data-table
         :headers="headers"
         :items="items"
@@ -51,17 +51,26 @@
       </v-data-table>
     </v-card>
 
-    <!-- Simple summary text like in image -->
+    <!-- Styled summary section like in image -->
     <div 
       v-if="summaryTitle"
-      class="mx-3 mb-3 text-center py-4"
+      class="mx-3 mb-3 d-flex justify-center"
     >
-      <span 
-        class="text-body-2"
-        style="color: #424242;"
+      <div 
+        class="summary-button px-4 py-2 elevation-4"
+        style="
+          background-color: #f5f5f5;
+          border: 1px solid #ddd;
+          border-radius: 8px;
+          color: #555;
+          font-size: 0.875rem;
+          font-weight: 500;
+          cursor: pointer;
+          transition: all 0.2s ease;
+        "
       >
         {{ summaryTitle }}
-      </span>
+      </div>
     </div>
   </v-card>
 </template>
